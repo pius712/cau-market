@@ -7,7 +7,8 @@ import ProfileComponent from '~/components/ProfileComponent'
 export default {
     components:{
         ProfileComponent
-    }
+    },
+    middleware: 'anonymous'
 }
 </script>
 

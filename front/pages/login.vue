@@ -7,7 +7,8 @@ import LoginComponent from '~/components/LoginComponent'
 export default {
     components:{
         LoginComponent
-    }
+    },
+    middleware: 'loggedIn'
 }
 </script>
 
