@@ -34,21 +34,20 @@
                                 color="indigo">
                                     로그인
                                 </v-btn >
-                                <v-divider style="margin-top:5px">
-                                    </v-divider>
+                                <v-divider style="margin-top:5px"></v-divider>
                                     <div class="find-info">
-                                    <nuxt-link to="/">
-                                        <span>아이디 찾기</span>
-                                    </nuxt-link>
-                                    <span class="bar"></span>
-                                    <nuxt-link to="/">
-                                        <span>비밀번호 찾기</span>
-                                    </nuxt-link>
-                                    <span class="bar"></span>
-                                    <nuxt-link to="/">
-                                        <span>회원가입</span>
-                                    </nuxt-link>
-                                </div>
+                                        <nuxt-link to="/">
+                                            <span>아이디 찾기</span>
+                                        </nuxt-link>
+                                        <span class="bar"></span>
+                                        <nuxt-link to="/">
+                                            <span>비밀번호 찾기</span>
+                                        </nuxt-link>
+                                        <span class="bar"></span>
+                                        <nuxt-link to="/">
+                                            <span>회원가입</span>
+                                        </nuxt-link>
+                                    </div>
                             </v-form>
                         </v-container>
                     </v-card>
@@ -82,17 +81,17 @@ export default {
 }
 </script>
 
-<style>
-a{
+<style scoped>
+.find-info{
+    margin-top: 20px;
+}
+.find-info a{
     text-decoration:none;
 }
-a > span{
+.find-info span{
     color: black;
     text-decoration: none;
     font-size:14px;
-}
-.find-info{
-    margin-top: 20px;
 }
 
 </style>

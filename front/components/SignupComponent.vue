@@ -105,7 +105,7 @@
 <script>
 export default {
     data(){
-        return({
+        return{
             id: '',
             password:'',
             passwordCheck:'',
@@ -117,7 +117,7 @@ export default {
                 id: v=> v.length>=6 || '6글자 이상의 영문',
                 passwordCheck: v=> this.password===v || '비밀번호를 확인하세요.'
             }
-        })
+        }
     },
     methods:{
         signUp(){
@@ -139,7 +139,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 a{
     text-decoration:none;
 }

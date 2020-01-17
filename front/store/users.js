@@ -12,6 +12,9 @@ export const state = ()=>({
 export const mutations = {
     setMe(state, payload){
         state.me = payload;
+    },
+    changeNick(state, nick){
+        state.me.nickname = nick;
     }
 };
 
@@ -24,5 +27,8 @@ export const actions = {
     },
     logOut(context, payload){
         context.commit('setMe', payload);
+    },
+    onChangeNick(context,nick){
+        context.commit('changeNick', nick);
     }
 };
