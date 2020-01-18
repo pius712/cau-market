@@ -1,11 +1,24 @@
-export const state = ()=>({
-
+export const state = () => ({
+  posts: []
 });
 
-export const mutations = {
+// title : '' String
+// photos: [] Array
+// itemName : String
+// category :  '' String
+// hashtag : [] Array
+// rating : '' String
+// price : Number
+// User:{
+//     id:
+//     nickname:
+// comments:[] Array
+// },
+// completed : Boolean
+// postId:
+// createdAt:
+// description:
 
-};
+export const mutations = {};
 
-export const actions = {
-
-};
+export const actions = {};
