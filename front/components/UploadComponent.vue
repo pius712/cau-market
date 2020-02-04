@@ -5,34 +5,16 @@
         <v-container>
           <v-card tile>
             <v-container>
-              <v-text-field
-                v-model="title"
-                placeholder="제목을 입력하세요"
-                outlined
-                dense
-              >
-              </v-text-field>
-              <v-text-field
-                v-model="itemName"
-                placeholder="제품명을 입력하세요."
-                outlined
-                dense
-              >
-              </v-text-field>
-              <v-textarea
-                v-model="description"
-                placeholder="제품에 대해서 설명해주세요.(최대 500자)"
-                outlined
-              >
-              </v-textarea>
+              <v-text-field v-model="title" placeholder="제목을 입력하세요" outlined dense></v-text-field>
+              <v-text-field v-model="itemName" placeholder="제품명을 입력하세요." outlined dense></v-text-field>
+              <v-textarea v-model="description" placeholder="제품에 대해서 설명해주세요.(최대 500자)" outlined></v-textarea>
               <v-select
                 v-model="category"
                 :items="categoryList"
                 placeholder="카테고리를 설정해주세요."
                 outlined
                 dense
-              >
-              </v-select>
+              ></v-select>
               <v-row no-gutters>
                 <v-col md="10">
                   <v-text-field
@@ -41,36 +23,34 @@
                     outlined
                     dense
                     @keydown.enter="addHashtag"
-                  >
-                  </v-text-field>
+                  ></v-text-field>
                 </v-col>
                 <v-col md="2">
-                  <v-btn large dark color="indigo" @click="addHashtag">
-                    등록하기
-                  </v-btn>
+                  <v-btn large dark color="indigo" @click="addHashtag">등록하기</v-btn>
                 </v-col>
               </v-row>
+              <v-file-input
+                accept="image/png, image/jpeg, image/bmp"
+                placeholder="사진을 올려주세요. (최대 5장)"
+                prepend-icon="mdi-camera"
+                label="사진"
+                multiple
+                @click="onChangeImage"
+              ></v-file-input>
               <v-chip
                 class="ma-2"
                 v-for="(hashtag, idx) in hashtags"
                 :key="idx"
                 :color="hashtagColor[idx]"
-              >
-                {{ hashtag }}</v-chip
-              >
+              >{{ hashtag }}</v-chip>
             </v-container>
           </v-card>
         </v-container>
         <v-container>
           <v-card tile>
             <v-container>
-              <v-text-field
-                v-model="price"
-                placeholder="판매희망 가격을 입력하새요"
-              >
-              </v-text-field>
-              <v-select v-model="rating" placeholder="제품의 등급을 입력하세요">
-              </v-select>
+              <v-text-field v-model="price" placeholder="판매희망 가격을 입력하새요"></v-text-field>
+              <v-select v-model="rating" placeholder="제품의 등급을 입력하세요"></v-select>
             </v-container>
           </v-card>
         </v-container>
@@ -84,25 +64,33 @@
 export default {
   data() {
     return {
-      categoryList: ['책', '의류', '가전디지털', '자취방'],
+      categoryList: ["책", "의류", "가전디지털", "자취방"],
       hashtags: [],
-      hashtagColor: ['blue', 'orange', 'green', 'red', 'indigo'],
-      title: '',
-      description: '',
-      hashtag: '',
-      price: '',
-      category: '',
-      itemName: '',
-      rating: '',
+      hashtagColor: ["blue", "orange", "green", "red", "indigo"],
+      title: "",
+      description: "",
+      hashtag: "",
+      price: "",
+      category: "",
+      itemName: "",
+      rating: ""
     };
   },
   methods: {
     addHashtag() {
-      console.log('??');
+      console.log("??");
       this.hashtags.push(this.hashtag);
-      this.hashtag = '';
+      this.hashtag = "";
     },
-  },
+    onChangeImage(e) {
+      console.log(e.target.files);
+      const imageFormData = new FormData();
+      [].forEach.call(e.target.files, image => {
+        imageFormData.append("image", image);
+      });
+      this.$store.dispatch("posts/uploadImages", imageFormData);
+    }
+  }
 };
 </script>
 
