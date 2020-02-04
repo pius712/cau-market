@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@nuxtjs/axios": "^5.9.4",
     "nuxt": "^2.11.0"
   },
   "devDependencies": {

@@ -20,8 +20,29 @@ export const mutations = {
 };
 
 export const actions = {
-  signUp(context, payload) {
-    context.commit('setMe', payload);
+  async signUp(context, payload) {
+    console.log('payload', payload);
+    await this.$axios
+      .post(
+        'http://localhost:8080/user',
+        {
+          id: payload.id,
+          password: payload.password,
+          email: payload.email,
+          name: payload.name,
+          studentId: payload.studentId,
+          nickname: payload.nickname,
+        },
+        {
+          withCredentials: true,
+        },
+      )
+      .then(() => {
+        context.commit('setMe', payload);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   },
   logIn(context, payload) {
     context.commit('setMe', payload);

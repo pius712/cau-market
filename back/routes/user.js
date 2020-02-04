@@ -4,18 +4,21 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   // req.body.id ...
   try {
-    const exUser = db.User.findOne({ where: { id: req.body.id } });
+    console.log(req.body.id);
+    const exUser = await db.User.findOne({ where: { id: req.body.id } });
     if (exUser) {
       return res.status(401).json({
         errorCode: 1,
         message: '이미 가입된 회원입니다.',
       });
     }
-    const hash = bcrypt.hash(req.body.password, 12);
-    const newUser = db.User.create({
+    console.log('password', req.body.password);
+    console.log('nickname', req.body.nickname);
+    const hash = await bcrypt.hash(req.body.password, 12);
+    const newUser = await db.User.create({
       id: req.body.id,
       password: hash,
       email: req.body.email,

@@ -13,8 +13,7 @@
                   label="아이디를 입력하세요"
                   outlined
                   dense
-                >
-                </v-text-field>
+                ></v-text-field>
                 <v-text-field
                   v-model="password"
                   :rules="[rules.required]"
@@ -22,8 +21,7 @@
                   label="비밀번호를 입력하세요"
                   outlined
                   dense
-                >
-                </v-text-field>
+                ></v-text-field>
                 <v-text-field
                   v-model="passwordCheck"
                   :rules="[rules.passwordCheck, rules.required]"
@@ -31,24 +29,28 @@
                   label="비밀번호를 재확인하세요"
                   outlined
                   dense
-                >
-                </v-text-field>
+                ></v-text-field>
                 <v-text-field
                   v-model="name"
                   :rules="[rules.required]"
                   label="이름을 입력하세요"
                   outlined
                   dense
-                >
-                </v-text-field>
+                ></v-text-field>
                 <v-text-field
                   v-model="nickname"
                   :rules="[rules.required]"
                   label="사용할 닉네임을 입력하세요"
                   outlined
                   dense
-                >
-                </v-text-field>
+                ></v-text-field>
+                <v-text-field
+                  v-model="studentId"
+                  :rules="[rules.required]"
+                  label="학번을 입력하세요"
+                  outlined
+                  dense
+                ></v-text-field>
 
                 <v-row no-gutters>
                   <v-col md="9">
@@ -59,8 +61,7 @@
                       outlined
                       dense
                       suffix="@cau.ac.kr"
-                    >
-                    </v-text-field>
+                    ></v-text-field>
                   </v-col>
                   <v-col md="3">
                     <v-btn large dark color="indigo">인증하기</v-btn>
@@ -72,22 +73,15 @@
           <v-container>
             <v-card>
               <v-container>
-                <v-card-title>
-                  이용약관동의
-                </v-card-title>
+                <v-card-title>이용약관동의</v-card-title>
                 <v-card-text class="pb-0">
                   <v-checkbox label="전체동의">전체동의</v-checkbox>
                 </v-card-text>
                 <v-card-text class="pa-0 ml-10">
                   <v-checkbox class="ma-0" label="이용약관"></v-checkbox>
-                  <v-checkbox
-                    class="ma-0"
-                    label="개인정보처리방침"
-                  ></v-checkbox>
+                  <v-checkbox class="ma-0" label="개인정보처리방침"></v-checkbox>
                 </v-card-text>
-                <v-btn type="submit" block dark large color="indigo">
-                  가입하기
-                </v-btn>
+                <v-btn type="submit" block dark large color="indigo">가입하기</v-btn>
               </v-container>
             </v-card>
           </v-container>
@@ -101,37 +95,40 @@
 export default {
   data() {
     return {
-      id: '',
-      password: '',
-      passwordCheck: '',
-      name: '',
-      nickname: '',
-      email: '',
+      id: "",
+      password: "",
+      passwordCheck: "",
+      name: "",
+      nickname: "",
+      email: "",
+      studentId: "",
       rules: {
-        required: v => !!v || '입력이 필요합니다.',
-        id: v => v.length >= 6 || '6글자 이상의 영문',
-        passwordCheck: v => this.password === v || '비밀번호를 확인하세요.',
-      },
+        required: v => !!v || "입력이 필요합니다.",
+        id: v => v.length >= 6 || "6글자 이상의 영문",
+        passwordCheck: v => this.password === v || "비밀번호를 확인하세요."
+      }
     };
   },
   methods: {
     signUp() {
-      console.log('signUp');
+      console.log("signUp");
       this.$store
-        .dispatch('users/signUp', {
+        .dispatch("users/signUp", {
           id: this.id,
-          name: this.name,
-          nicknmae: this.nickname,
+          password: this.password,
           email: this.email,
+          name: this.name,
+          studentId: this.studentId,
+          nickname: this.nickname
         })
         // .then(()=>{
         //     this.$store.dispatch('users/logIn')
         // })
         .then(() => {
-          this.$router.push('/');
+          this.$router.push("/");
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
