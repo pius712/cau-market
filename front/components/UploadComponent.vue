@@ -29,20 +29,29 @@
                   <v-btn large dark color="indigo" @click="addHashtag">등록하기</v-btn>
                 </v-col>
               </v-row>
-              <v-file-input
-                accept="image/png, image/jpeg, image/bmp"
-                placeholder="사진을 올려주세요. (최대 5장)"
-                prepend-icon="mdi-camera"
-                label="사진"
-                multiple
-                @click="onChangeImage"
-              ></v-file-input>
+
               <v-chip
                 class="ma-2"
                 v-for="(hashtag, idx) in hashtags"
                 :key="idx"
                 :color="hashtagColor[idx]"
               >{{ hashtag }}</v-chip>
+              <v-row no-gutters>
+                <v-col md="10">
+                  <div v-for="(image,idx) in imagesPaths" :key="idx" style="inline-block">
+                    <img
+                      :src="`http://localhost:8080/${image}`"
+                      style="width:50px; heigth: 50px"
+                      @click="check(idx)"
+                    />
+                    <v-icon @click="onClickRemoveBtn(idx)">mdi-delete</v-icon>
+                  </div>
+                </v-col>
+                <v-col md="2">
+                  <input ref="imageInput" type="file" multilple hidden @change="onChangeImages" />
+                  <v-btn large dark color="indigo" @click="onClickImageUpload">사진등록</v-btn>
+                </v-col>
+              </v-row>
             </v-container>
           </v-card>
         </v-container>
@@ -50,11 +59,11 @@
           <v-card tile>
             <v-container>
               <v-text-field v-model="price" placeholder="판매희망 가격을 입력하새요"></v-text-field>
-              <v-select v-model="rating" placeholder="제품의 등급을 입력하세요"></v-select>
+              <v-select :items="rating" placeholder="제품의 등급을 입력하세요"></v-select>
+              <v-btn @click="uploadPost" block lagrge dark color="indigo">업로드</v-btn>
             </v-container>
           </v-card>
         </v-container>
-        <v-card tile>하이하이</v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -64,17 +73,23 @@
 export default {
   data() {
     return {
-      categoryList: ["책", "의류", "가전디지털", "자취방"],
-      hashtags: [],
-      hashtagColor: ["blue", "orange", "green", "red", "indigo"],
       title: "",
+      itemName: "",
       description: "",
+      category: "",
+      hashtags: [],
       hashtag: "",
       price: "",
-      category: "",
-      itemName: "",
-      rating: ""
+      rating: ["상", "중", "하"],
+      categoryList: ["책", "의류", "가전디지털", "자취방"],
+      hashtagColor: ["blue", "orange", "green", "red", "indigo"],
+      hover: false
     };
+  },
+  computed: {
+    imagesPaths() {
+      return this.$store.state.posts.imagesPaths;
+    }
   },
   methods: {
     addHashtag() {
@@ -82,13 +97,22 @@ export default {
       this.hashtags.push(this.hashtag);
       this.hashtag = "";
     },
-    onChangeImage(e) {
-      console.log(e.target.files);
+    onClickImageUpload() {
+      this.$refs.imageInput.click();
+    },
+    onChangeImages(e) {
+      console.log("e.target.files", e.target.files);
       const imageFormData = new FormData();
       [].forEach.call(e.target.files, image => {
-        imageFormData.append("image", image);
+        imageFormData.append("images", image);
       });
       this.$store.dispatch("posts/uploadImages", imageFormData);
+    },
+    onClickRemoveBtn(idx) {
+      this.$store.commit("posts/removeImagePath", idx);
+    },
+    uploadPost() {
+      this.$store.dispatch("posts/uploadPost", {});
     }
   }
 };

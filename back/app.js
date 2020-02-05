@@ -22,6 +22,7 @@ app.use(
 		credentials: true,
 	}),
 );
+app.use(express.static('uploads'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookie('pius712'));
@@ -37,7 +38,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('postRouter', postRouter);
+app.use('/post', postRouter);
 
 app.listen(8080, () => {
 	console.log('8080 listening');
